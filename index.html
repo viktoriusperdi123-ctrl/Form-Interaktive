@@ -5,30 +5,86 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Form Multi-Step Interaktif</title>
   <style>
+    :root {
+      --bg: #f0f4ff;
+      --form-bg: #ffffff;
+      --text: #222;
+      --primary: #007bff;
+      --primary-dark: #0056b3;
+      --success-bg: #d4edda;
+      --success-text: #155724;
+    }
+
+    body.dark {
+      --bg: #121212;
+      --form-bg: #1e1e1e;
+      --text: #f8f9fa;
+      --primary: #66b2ff;
+      --primary-dark: #3399ff;
+      --success-bg: #213d29;
+      --success-text: #b9ffcc;
+    }
+
     body {
       font-family: 'Poppins', sans-serif;
-      background: linear-gradient(135deg, #cce5ff, #e6f2ff);
+      background: var(--bg);
+      color: var(--text);
+      margin: 0;
       display: flex;
       justify-content: center;
       align-items: center;
       height: 100vh;
-      overflow: hidden;
+      transition: background 0.5s, color 0.5s;
     }
 
     .form-container {
-      background-color: #fff;
-      padding: 30px;
+      background: var(--form-bg);
       border-radius: 20px;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
-      width: 420px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+      padding: 30px;
+      width: 90%;
+      max-width: 420px;
       position: relative;
       overflow: hidden;
+      transition: background 0.5s;
     }
 
     h2 {
       text-align: center;
-      color: #333;
-      margin-bottom: 20px;
+      margin-bottom: 15px;
+      font-size: 1.4em;
+    }
+
+    .toggle-container {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+    }
+
+    .toggle {
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 6px 12px;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    .progress {
+      width: 100%;
+      height: 8px;
+      background: #e0e0e0;
+      border-radius: 10px;
+      overflow: hidden;
+      margin: 15px 0 20px;
+    }
+
+    .progress-bar {
+      height: 8px;
+      background: linear-gradient(90deg, var(--primary), var(--primary-dark));
+      width: 0%;
+      transition: width 0.4s ease;
     }
 
     .step {
@@ -52,205 +108,5 @@
     input, select, button {
       width: 100%;
       padding: 10px;
-      margin: 8px 0;
       border-radius: 8px;
-      border: 1px solid #ccc;
-      font-size: 16px;
-    }
-
-    .radio-group, .checkbox-group {
-      margin: 10px 0;
-    }
-
-    .radio-group label, .checkbox-group label {
-      display: block;
-      margin: 5px 0;
-      cursor: pointer;
-    }
-
-    button {
-      background-color: #007bff;
-      color: white;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      padding: 10px;
-      font-size: 16px;
-      transition: 0.3s;
-    }
-
-    button:hover {
-      background-color: #0056b3;
-    }
-
-    .nav-buttons {
-      display: flex;
-      justify-content: space-between;
-      gap: 10px;
-    }
-
-    .message {
-      margin-top: 20px;
-      background-color: #d4edda;
-      color: #155724;
-      padding: 15px;
-      border-radius: 8px;
-      display: none;
-      text-align: center;
-    }
-
-    .progress {
-      width: 100%;
-      background: #e9ecef;
-      border-radius: 10px;
-      overflow: hidden;
-      margin-bottom: 20px;
-      height: 10px;
-    }
-
-    .progress-bar {
-      height: 10px;
-      background: linear-gradient(90deg, #007bff, #66b2ff);
-      width: 0%;
-      transition: width 0.5s ease;
-    }
-  </style>
-</head>
-<body>
-  <div class="form-container">
-    <h2>Form Pendaftaran</h2>
-
-    <div class="progress"><div class="progress-bar" id="progressBar"></div></div>
-
-    <form id="multiStepForm">
-      <!-- STEP 1 -->
-      <div class="step active" id="step1">
-        <input type="text" id="name" placeholder="Nama Lengkap" required>
-        <select id="role" required>
-          <option value="">Pilih Peran</option>
-          <option value="siswa">Siswa</option>
-          <option value="guru">Guru</option>
-        </select>
-        <div class="nav-buttons">
-          <button type="button" id="next1">Lanjut</button>
-        </div>
-      </div>
-
-      <!-- STEP 2 -->
-      <div class="step" id="step2">
-        <div id="dynamicQuestion"></div>
-        <div class="nav-buttons">
-          <button type="button" id="prev2">Kembali</button>
-          <button type="button" id="next2">Lanjut</button>
-        </div>
-      </div>
-
-      <!-- STEP 3 -->
-      <div class="step" id="step3">
-        <h3>Pilih Minat Utama</h3>
-        <div class="radio-group">
-          <label><input type="radio" name="mainInterest" value="Teknologi" required> Teknologi</label>
-          <label><input type="radio" name="mainInterest" value="Olahraga"> Olahraga</label>
-          <label><input type="radio" name="mainInterest" value="Seni"> Seni</label>
-          <label><input type="radio" name="mainInterest" value="Musik"> Musik</label>
-        </div>
-        <div class="nav-buttons">
-          <button type="button" id="prev3">Kembali</button>
-          <button type="button" id="next3">Lanjut</button>
-        </div>
-      </div>
-
-      <!-- STEP 4 -->
-      <div class="step" id="step4">
-        <h3>Pilih Minat Tambahan</h3>
-        <p>(Opsional — bisa pilih lebih dari satu)</p>
-        <div class="checkbox-group">
-          <label><input type="checkbox" name="extraInterest" value="Teknologi"> Teknologi</label>
-          <label><input type="checkbox" name="extraInterest" value="Olahraga"> Olahraga</label>
-          <label><input type="checkbox" name="extraInterest" value="Seni"> Seni</label>
-          <label><input type="checkbox" name="extraInterest" value="Musik"> Musik</label>
-          <label><input type="checkbox" name="extraInterest" value="Kuliner"> Kuliner</label>
-        </div>
-        <div class="nav-buttons">
-          <button type="button" id="prev4">Kembali</button>
-          <button type="submit">Kirim</button>
-        </div>
-      </div>
-    </form>
-
-    <div class="message" id="message"></div>
-  </div>
-
-  <script>
-    const steps = document.querySelectorAll('.step');
-    const form = document.getElementById('multiStepForm');
-    const progressBar = document.getElementById('progressBar');
-    const message = document.getElementById('message');
-    const dynamicQuestion = document.getElementById('dynamicQuestion');
-    let currentStep = 0;
-
-    const showStep = (index) => {
-      steps.forEach((step, i) => {
-        step.classList.remove('active', 'prev');
-        if (i === index) step.classList.add('active');
-        else if (i < index) step.classList.add('prev');
-      });
-      progressBar.style.width = ((index + 1) / steps.length) * 100 + '%';
-    };
-
-    // Step logic
-    document.getElementById('next1').addEventListener('click', () => {
-      const name = document.getElementById('name').value.trim();
-      const role = document.getElementById('role').value;
-      if (!name || !role) return alert('Harap isi semua kolom.');
-
-      dynamicQuestion.innerHTML = role === 'siswa'
-        ? `<label>Nama Sekolah</label><input type="text" id="school" placeholder="Nama Sekolah" required>`
-        : `<label>Mata Pelajaran</label><input type="text" id="subject" placeholder="Mata Pelajaran" required>`;
-
-      showStep(++currentStep);
-    });
-
-    document.getElementById('prev2').addEventListener('click', () => showStep(--currentStep));
-    document.getElementById('next2').addEventListener('click', () => {
-      const role = document.getElementById('role').value;
-      const inputId = role === 'siswa' ? 'school' : 'subject';
-      if (!document.getElementById(inputId).value.trim()) return alert('Harap isi kolom tersebut.');
-      showStep(++currentStep);
-    });
-
-    document.getElementById('prev3').addEventListener('click', () => showStep(--currentStep));
-    document.getElementById('next3').addEventListener('click', () => {
-      const mainInterest = document.querySelector('input[name="mainInterest"]:checked');
-      if (!mainInterest) return alert('Pilih satu minat utama terlebih dahulu.');
-      showStep(++currentStep);
-    });
-
-    document.getElementById('prev4').addEventListener('click', () => showStep(--currentStep));
-
-    // Submit
-    form.addEventListener('submit', (e) => {
-      e.preventDefault();
-      const name = document.getElementById('name').value;
-      const role = document.getElementById('role').value;
-      const info = role === 'siswa'
-        ? document.getElementById('school').value
-        : document.getElementById('subject').value;
-      const mainInterest = document.querySelector('input[name="mainInterest"]:checked').value;
-      const extraInterests = Array.from(document.querySelectorAll('input[name="extraInterest"]:checked')).map(e => e.value);
-
-      message.innerHTML = `
-        <strong>Terima kasih, ${name}!</strong><br>
-        Anda terdaftar sebagai <strong>${role}</strong> (${info}).<br>
-        Minat utama: <strong>${mainInterest}</strong><br>
-        Minat tambahan: <strong>${extraInterests.join(', ') || 'Tidak ada'}</strong>
-      `;
-      message.style.display = 'block';
-
-      form.reset();
-      currentStep = 0;
-      showStep(currentStep);
-    });
-  </script>
-</body>
-</html>
+      border: 1px solid
