@@ -11,8 +11,8 @@ body {
 /* Toggle container (pojok kanan atas) */
 .toggle-container {
   position: fixed;
-  top: 20px;
-  right: 20px;
+  top: 30px;
+  right: 10px;
 }
 
 /* Switch styling */
