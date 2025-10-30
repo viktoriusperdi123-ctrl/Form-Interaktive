@@ -1,44 +1,36 @@
-# Hi, I'm Viktorius Perdi! 👋
+# 🌙 Interactive Form with Dark Mode
 
-I am a passionate B.Electrical Engineering with a concentration in Telecommunications student at Tanjungpura University, driven by a curiosity for technology and a love for writing. My journey involves delving into the world of computer science, exploring new ideas, and sharing my insights with the community.
+Form interaktif berbasis **HTML, CSS, dan JavaScript** dengan fitur **Dark Mode Toggle**, **radio button untuk minat utama**, serta **checkbox untuk minat tambahan**.  
+Proyek ini dirancang untuk mempelajari dasar interaksi pengguna dan logika form dinamis di web.
 
-![viktoriusperdi123-ctrl's Stats](https://github-readme-stats.vercel.app/api?username=viktoriusperdi123-ctrl&theme=vue-dark&show_icons=true&hide_border=true&count_private=true)
+---
 
-## 🚀 About Me
+## 🚀 Fitur Utama
 
-- 🔭 I'm currently pursuing my Bachelor’s degree in Electrical Engineering with a concentration in Telecommunications at Tanjungpura University.
+✅ **Form Interaktif**  
+- Input nama, email, dan bidang minat pengguna.  
+- Radio button untuk memilih **satu minat utama**.  
+- Checkbox untuk memilih **minat tambahan**.  
 
-## 🌱 Currently Exploring
+🌓 **Dark Mode Toggle**  
+- Mengubah tema antara **terang dan gelap** secara real-time.  
+- Posisi toggle bisa disesuaikan (pojok kanan atas, kiri, atau di dalam form).  
 
-- 🚀 Learning Full Stack Web Development
-  - Exploring the ins and outs of React and Redux for dynamic front-end experiences.
-  - Navigating through the world of React Router for seamless page transitions.
-  - Styling with Tailwind CSS to create modern and responsive user interfaces.
-  - Building server-side applications with Django, a powerful Python web framework.
-  - Diving into PostgreSQL for efficient and scalable database management.
+💡 **Responsif dan Modern**  
+- Desain bersih dan mudah dibaca di berbagai ukuran layar.  
+- Menggunakan **transisi halus** dan layout fleksibel (Flexbox).
 
- ## 🏆 Achievements
+---
 
+## 🧩 Teknologi yang Digunakan
 
+| Teknologi | Deskripsi |
+|------------|------------|
+| **HTML5** | Struktur form dan elemen interaktif |
+| **CSS3** | Styling, animasi, dan dark mode |
+| **JavaScript (ES6)** | Logika form, validasi, dan event handler |
 
-## 📬 Get in Touch
+---
 
-- Connect with me on [Youtube](https://www.youtube.com/@bangdhong)
+## 📁 Struktur Proyek
 
-Thanks for stopping by! Let's connect and explore the fascinating world of technology together. 🚀
-
-
-
-<!--
-
-Here are some ideas to get you started:
-
-- 🔭 I’m currently working on ...
-- 🌱 I’m currently learning ...
-- 👯 I’m looking to collaborate on ...
-- 🤔 I’m looking for help with ...
-- 💬 Ask me about ...
-- 📫 How to reach me: ...
-- 😄 Pronouns: ...
-- ⚡ Fun fact: ...
--->
