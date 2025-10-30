@@ -3,10 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Form Interaktif Real-Time Preview</title>
+  <title>Form Interaktif + Real-Time Preview + Dark Mode</title>
   <style>
     * {
       box-sizing: border-box;
+      transition: background-color 0.3s, color 0.3s;
     }
     body {
       font-family: "Poppins", sans-serif;
@@ -20,6 +21,7 @@
     }
     .container {
       display: flex;
+      flex-wrap: wrap;
       gap: 30px;
       width: 90%;
       max-width: 900px;
@@ -30,6 +32,7 @@
       border-radius: 14px;
       padding: 25px;
       box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      min-width: 300px;
     }
     h2 {
       text-align: center;
@@ -53,6 +56,8 @@
       border: 1px solid #ccc;
       border-radius: 8px;
       margin-top: 6px;
+      background-color: inherit;
+      color: inherit;
     }
     .radio-group label, .checkbox-group label {
       font-weight: normal;
@@ -88,12 +93,68 @@
       color: #007bff;
       font-weight: 600;
     }
+
+    /* 🌙 DARK MODE */
+    body.dark {
+      background: linear-gradient(135deg, #111, #1e1e1e);
+      color: #ddd;
+    }
+    body.dark .form-box, 
+    body.dark .preview-box {
+      background: #222;
+      color: #ddd;
+      box-shadow: 0 4px 15px rgba(255,255,255,0.05);
+    }
+    body.dark input, 
+    body.dark select {
+      border: 1px solid #555;
+      background-color: #333;
+      color: #ddd;
+    }
+    body.dark button {
+      background-color: #0a84ff;
+    }
+    body.dark .preview-box {
+      background-color: #2a2a2a;
+    }
+
+    /* 🌗 TOGGLE */
+    .toggle-container {
+      width: 100%;
+      text-align: right;
+      margin-bottom: 10px;
+    }
+    .toggle-btn {
+      background: none;
+      border: 2px solid #007bff;
+      color: #007bff;
+      padding: 8px 14px;
+      border-radius: 20px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+    .toggle-btn:hover {
+      background-color: #007bff;
+      color: white;
+    }
+    body.dark .toggle-btn {
+      border-color: #0a84ff;
+      color: #0a84ff;
+    }
+    body.dark .toggle-btn:hover {
+      background-color: #0a84ff;
+      color: #fff;
+    }
   </style>
 </head>
 <body>
   <div class="container">
     <!-- FORM -->
     <div class="form-box">
+      <div class="toggle-container">
+        <button class="toggle-btn" id="toggleTheme">🌗 Mode Gelap</button>
+      </div>
+
       <h2>Form Multi-Step</h2>
       <form id="multiStepForm">
         <!-- Step 1 -->
@@ -165,6 +226,7 @@
     const prev2 = document.getElementById("prev2");
     const prev3 = document.getElementById("prev3");
     const prev4 = document.getElementById("prev4");
+    const toggleTheme = document.getElementById("toggleTheme");
 
     const nameInput = document.getElementById("name");
     const roleSelect = document.getElementById("role");
@@ -176,7 +238,7 @@
     const pMain = document.getElementById("pMain");
     const pExtras = document.getElementById("pExtras");
 
-    // Fungsi untuk update preview real-time
+    // Fungsi update preview real-time
     function updatePreview() {
       pName.textContent = nameInput.value || "-";
       pRole.textContent = roleSelect.value || "-";
@@ -246,10 +308,16 @@
     document.addEventListener("input", updatePreview);
     document.addEventListener("change", updatePreview);
 
+    // Mode Gelap toggle
+    toggleTheme.addEventListener("click", () => {
+      document.body.classList.toggle("dark");
+      toggleTheme.textContent = document.body.classList.contains("dark") ? "☀️ Mode Terang" : "🌗 Mode Gelap";
+    });
+
     // Handle submit
     document.getElementById("multiStepForm").addEventListener("submit", (e) => {
       e.preventDefault();
-      alert("Data berhasil dikirim! 🎉");
+      alert("✅ Data berhasil dikirim!");
       e.target.reset();
       updatePreview();
       steps.forEach(s => s.classList.remove("active"));
