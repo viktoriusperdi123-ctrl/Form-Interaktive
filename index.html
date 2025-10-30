@@ -3,27 +3,38 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Form Multi-Step dengan Minat Utama</title>
+  <title>Form Interaktif Real-Time Preview</title>
   <style>
+    * {
+      box-sizing: border-box;
+    }
     body {
-      font-family: Arial, sans-serif;
-      background-color: #f4f4f9;
+      font-family: "Poppins", sans-serif;
+      background: linear-gradient(135deg, #ece9e6, #ffffff);
       display: flex;
       justify-content: center;
-      align-items: center;
-      height: 100vh;
+      align-items: flex-start;
+      min-height: 100vh;
+      padding: 40px;
+      color: #333;
     }
-    .form-container {
-      background-color: #fff;
-      padding: 30px;
-      border-radius: 12px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-      width: 400px;
+    .container {
+      display: flex;
+      gap: 30px;
+      width: 90%;
+      max-width: 900px;
+    }
+    .form-box, .preview-box {
+      flex: 1;
+      background: #fff;
+      border-radius: 14px;
+      padding: 25px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
     }
     h2 {
       text-align: center;
+      color: #007bff;
       margin-bottom: 20px;
-      color: #333;
     }
     .step {
       display: none;
@@ -31,206 +42,218 @@
     .step.active {
       display: block;
     }
-    input, select, button {
+    label {
+      display: block;
+      margin-top: 10px;
+      font-weight: 500;
+    }
+    input[type="text"], select {
       width: 100%;
       padding: 10px;
-      margin: 8px 0;
-      border-radius: 6px;
       border: 1px solid #ccc;
-      font-size: 16px;
+      border-radius: 8px;
+      margin-top: 6px;
     }
-    .radio-group label {
-      display: block;
-      margin: 4px 0;
+    .radio-group label, .checkbox-group label {
       font-weight: normal;
+      display: block;
+      margin-top: 5px;
     }
     button {
       background-color: #007bff;
       color: white;
       border: none;
+      padding: 10px 16px;
+      border-radius: 8px;
+      margin-top: 15px;
       cursor: pointer;
       transition: 0.3s;
     }
     button:hover {
       background-color: #0056b3;
     }
-    .message {
-      margin-top: 15px;
-      padding: 10px;
-      background-color: #d4edda;
-      color: #155724;
-      border-radius: 6px;
-      display: none;
+    .preview-box {
+      background-color: #f9f9ff;
+    }
+    .preview-box h3 {
+      text-align: center;
+      color: #444;
+      margin-bottom: 15px;
+    }
+    .preview-item {
+      margin-bottom: 8px;
+      font-size: 15px;
+    }
+    .highlight {
+      color: #007bff;
+      font-weight: 600;
     }
   </style>
 </head>
 <body>
-  <div class="form-container">
-    <h2>Form Multi-Step dengan Minat Utama</h2>
-    <form id="multiStepForm">
-      <!-- Step 1 -->
-      <div class="step active" id="step1">
-        <input type="text" id="name" placeholder="Nama Lengkap" required>
-        <select id="role" required>
-          <option value="">Pilih Peran</option>
-          <option value="siswa">Siswa</option>
-          <option value="guru">Guru</option>
-        </select>
-        <button type="button" id="next1">Lanjut</button>
-      </div>
+  <div class="container">
+    <!-- FORM -->
+    <div class="form-box">
+      <h2>Form Multi-Step</h2>
+      <form id="multiStepForm">
+        <!-- Step 1 -->
+        <div class="step active" id="step1">
+          <label>Nama Lengkap:</label>
+          <input type="text" id="name" placeholder="Masukkan nama lengkap" required>
 
-      <!-- Step 2: Pertanyaan berdasarkan peran -->
-      <div class="step" id="step2">
-        <div id="dynamicQuestion"></div>
-        <button type="button" id="prev2">Kembali</button>
-        <button type="button" id="next2">Lanjut</button>
-      </div>
+          <label>Peran:</label>
+          <select id="role" required>
+            <option value="">Pilih Peran</option>
+            <option value="siswa">Siswa</option>
+            <option value="guru">Guru</option>
+          </select>
 
-      <!-- Step 3: Pilih minat utama -->
-      <div class="step" id="step3">
-        <h3>Pilih Minat Utama Anda</h3>
-        <div class="radio-group">
-          <label><input type="radio" name="mainInterest" value="Teknologi" required> Teknologi</label>
-          <label><input type="radio" name="mainInterest" value="Olahraga"> Olahraga</label>
-          <label><input type="radio" name="mainInterest" value="Seni"> Seni</label>
-          <label><input type="radio" name="mainInterest" value="Musik"> Musik</label>
+          <button type="button" id="next1">Lanjut</button>
         </div>
-        <button type="button" id="prev3">Kembali</button>
-        <button type="button" id="next3">Lanjut ke Preview</button>
-      </div>
 
-      <!-- Step 4: Preview sebelum submit -->
-      <div class="step" id="step4">
-        <h3>Preview Data Anda</h3>
-        <div id="preview"></div>
-        <button type="button" id="prev4">Kembali</button>
-        <button type="submit">Submit</button>
-      </div>
-    </form>
+        <!-- Step 2 -->
+        <div class="step" id="step2">
+          <div id="dynamicQuestion"></div>
+          <button type="button" id="prev2">Kembali</button>
+          <button type="button" id="next2">Lanjut</button>
+        </div>
 
-    <div class="message" id="message"></div>
+        <!-- Step 3 -->
+        <div class="step" id="step3">
+          <h4>Pilih Minat Utama</h4>
+          <div class="radio-group">
+            <label><input type="radio" name="mainInterest" value="Teknologi"> Teknologi</label>
+            <label><input type="radio" name="mainInterest" value="Olahraga"> Olahraga</label>
+            <label><input type="radio" name="mainInterest" value="Seni"> Seni</label>
+            <label><input type="radio" name="mainInterest" value="Musik"> Musik</label>
+          </div>
+          <button type="button" id="prev3">Kembali</button>
+          <button type="button" id="next3">Lanjut</button>
+        </div>
+
+        <!-- Step 4 -->
+        <div class="step" id="step4">
+          <h4>Pilih Minat Tambahan</h4>
+          <div class="checkbox-group">
+            <label><input type="checkbox" name="extraInterest" value="Fotografi"> Fotografi</label>
+            <label><input type="checkbox" name="extraInterest" value="Travel"> Travel</label>
+            <label><input type="checkbox" name="extraInterest" value="Memasak"> Memasak</label>
+            <label><input type="checkbox" name="extraInterest" value="Gaming"> Gaming</label>
+          </div>
+          <button type="button" id="prev4">Kembali</button>
+          <button type="submit">Kirim</button>
+        </div>
+      </form>
+    </div>
+
+    <!-- PREVIEW -->
+    <div class="preview-box" id="previewBox">
+      <h3>Preview Data Anda</h3>
+      <div class="preview-item"><strong>Nama:</strong> <span id="pName" class="highlight">-</span></div>
+      <div class="preview-item"><strong>Peran:</strong> <span id="pRole" class="highlight">-</span></div>
+      <div class="preview-item"><strong>Info Tambahan:</strong> <span id="pExtra" class="highlight">-</span></div>
+      <div class="preview-item"><strong>Minat Utama:</strong> <span id="pMain" class="highlight">-</span></div>
+      <div class="preview-item"><strong>Minat Tambahan:</strong> <span id="pExtras" class="highlight">-</span></div>
+    </div>
   </div>
 
   <script>
-    const step1 = document.getElementById('step1');
-    const step2 = document.getElementById('step2');
-    const step3 = document.getElementById('step3');
-    const step4 = document.getElementById('step4');
+    const steps = document.querySelectorAll(".step");
+    const next1 = document.getElementById("next1");
+    const next2 = document.getElementById("next2");
+    const next3 = document.getElementById("next3");
+    const prev2 = document.getElementById("prev2");
+    const prev3 = document.getElementById("prev3");
+    const prev4 = document.getElementById("prev4");
 
-    const next1 = document.getElementById('next1');
-    const prev2 = document.getElementById('prev2');
-    const next2 = document.getElementById('next2');
-    const prev3 = document.getElementById('prev3');
-    const next3 = document.getElementById('next3');
-    const prev4 = document.getElementById('prev4');
+    const nameInput = document.getElementById("name");
+    const roleSelect = document.getElementById("role");
+    const dynamicQuestion = document.getElementById("dynamicQuestion");
 
-    const form = document.getElementById('multiStepForm');
-    const dynamicQuestion = document.getElementById('dynamicQuestion');
-    const preview = document.getElementById('preview');
-    const message = document.getElementById('message');
+    const pName = document.getElementById("pName");
+    const pRole = document.getElementById("pRole");
+    const pExtra = document.getElementById("pExtra");
+    const pMain = document.getElementById("pMain");
+    const pExtras = document.getElementById("pExtras");
 
-    // Step 1 -> Step 2
-    next1.addEventListener('click', () => {
-      const role = document.getElementById('role').value;
-      if (!role || !document.getElementById('name').value) {
-        alert("Harap isi semua kolom.");
-        return;
+    // Fungsi untuk update preview real-time
+    function updatePreview() {
+      pName.textContent = nameInput.value || "-";
+      pRole.textContent = roleSelect.value || "-";
+
+      const role = roleSelect.value;
+      if (role === "siswa" && document.getElementById("school")) {
+        pExtra.textContent = document.getElementById("school").value || "-";
+      } else if (role === "guru" && document.getElementById("subject")) {
+        pExtra.textContent = document.getElementById("subject").value || "-";
+      } else {
+        pExtra.textContent = "-";
       }
 
-      if (role === "siswa") {
-        dynamicQuestion.innerHTML = `
-          <label>Nama Sekolah</label>
-          <input type="text" id="school" placeholder="Nama Sekolah" required>
-        `;
-      } else if (role === "guru") {
-        dynamicQuestion.innerHTML = `
-          <label>Mata Pelajaran</label>
-          <input type="text" id="subject" placeholder="Mata Pelajaran" required>
-        `;
-      }
-
-      step1.classList.remove('active');
-      step2.classList.add('active');
-    });
-
-    // Step 2 -> Step 1
-    prev2.addEventListener('click', () => {
-      step2.classList.remove('active');
-      step1.classList.add('active');
-    });
-
-    // Step 2 -> Step 3
-    next2.addEventListener('click', () => {
-      const role = document.getElementById('role').value;
-      let valid = false;
-      if (role === "siswa") {
-        valid = document.getElementById('school').value.trim() !== '';
-      } else if (role === "guru") {
-        valid = document.getElementById('subject').value.trim() !== '';
-      }
-
-      if (!valid) {
-        alert("Harap isi pertanyaan sebelumnya.");
-        return;
-      }
-
-      step2.classList.remove('active');
-      step3.classList.add('active');
-    });
-
-    // Step 3 -> Step 2
-    prev3.addEventListener('click', () => {
-      step3.classList.remove('active');
-      step2.classList.add('active');
-    });
-
-    // Step 3 -> Step 4 (Preview)
-    next3.addEventListener('click', () => {
       const mainInterest = document.querySelector('input[name="mainInterest"]:checked');
-      if (!mainInterest) {
-        alert("Harap pilih minat utama.");
+      pMain.textContent = mainInterest ? mainInterest.value : "-";
+
+      const extras = Array.from(document.querySelectorAll('input[name="extraInterest"]:checked')).map(el => el.value);
+      pExtras.textContent = extras.length ? extras.join(", ") : "-";
+    }
+
+    // Step navigation
+    next1.addEventListener("click", () => {
+      if (!nameInput.value || !roleSelect.value) {
+        alert("Isi nama dan peran terlebih dahulu!");
         return;
       }
-
-      // Menampilkan preview
-      const name = document.getElementById('name').value;
-      const role = document.getElementById('role').value;
-      let extraInfo = role === 'siswa' ? document.getElementById('school').value : document.getElementById('subject').value;
-
-      preview.innerHTML = `
-        <p><strong>Nama:</strong> ${name}</p>
-        <p><strong>Peran:</strong> ${role}</p>
-        <p><strong>Info Tambahan:</strong> ${extraInfo}</p>
-        <p><strong>Minat Utama:</strong> ${mainInterest.value}</p>
-      `;
-
-      step3.classList.remove('active');
-      step4.classList.add('active');
+      if (roleSelect.value === "siswa") {
+        dynamicQuestion.innerHTML = `<label>Nama Sekolah:</label>
+                                     <input type="text" id="school" placeholder="Masukkan nama sekolah">`;
+      } else {
+        dynamicQuestion.innerHTML = `<label>Mata Pelajaran:</label>
+                                     <input type="text" id="subject" placeholder="Masukkan mata pelajaran">`;
+      }
+      steps[0].classList.remove("active");
+      steps[1].classList.add("active");
+      updatePreview();
     });
 
-    // Step 4 -> Step 3
-    prev4.addEventListener('click', () => {
-      step4.classList.remove('active');
-      step3.classList.add('active');
+    prev2.addEventListener("click", () => {
+      steps[1].classList.remove("active");
+      steps[0].classList.add("active");
     });
 
-    // Submit form
-    form.addEventListener('submit', (e) => {
+    next2.addEventListener("click", () => {
+      steps[1].classList.remove("active");
+      steps[2].classList.add("active");
+      updatePreview();
+    });
+
+    prev3.addEventListener("click", () => {
+      steps[2].classList.remove("active");
+      steps[1].classList.add("active");
+    });
+
+    next3.addEventListener("click", () => {
+      steps[2].classList.remove("active");
+      steps[3].classList.add("active");
+      updatePreview();
+    });
+
+    prev4.addEventListener("click", () => {
+      steps[3].classList.remove("active");
+      steps[2].classList.add("active");
+    });
+
+    // Real-time preview listener
+    document.addEventListener("input", updatePreview);
+    document.addEventListener("change", updatePreview);
+
+    // Handle submit
+    document.getElementById("multiStepForm").addEventListener("submit", (e) => {
       e.preventDefault();
-
-      const name = document.getElementById('name').value;
-      const role = document.getElementById('role').value;
-      let extraInfo = role === 'siswa' ? document.getElementById('school').value : document.getElementById('subject').value;
-      const mainInterest = document.querySelector('input[name="mainInterest"]:checked').value;
-
-      message.style.display = 'block';
-      message.innerHTML = `Halo <strong>${name}</strong>, terima kasih telah mendaftar sebagai <strong>${role}</strong>.<br>
-      Info tambahan: <strong>${extraInfo}</strong><br>
-      Minat Utama: <strong>${mainInterest}</strong>`;
-
-      form.reset();
-      step4.classList.remove('active');
-      step1.classList.add('active');
+      alert("Data berhasil dikirim! 🎉");
+      e.target.reset();
+      updatePreview();
+      steps.forEach(s => s.classList.remove("active"));
+      steps[0].classList.add("active");
     });
   </script>
 </body>
