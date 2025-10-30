@@ -1,179 +1,128 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Form Multi-Step Interaktif</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Form Interaktif Multi-Step</title>
   <style>
-    :root {
-      --bg: #f0f7ff;
-      --card-bg: #fff;
-      --text: #333;
-      --primary: #007bff;
-      --primary-dark: #0056b3;
-      --shadow: rgba(0, 0, 0, 0.15);
-    }
-
-    body.dark {
-      --bg: #121212;
-      --card-bg: #1e1e1e;
-      --text: #f0f0f0;
-      --primary: #66b2ff;
-      --primary-dark: #3399ff;
-      --shadow: rgba(255, 255, 255, 0.15);
-    }
-
     body {
       font-family: 'Poppins', sans-serif;
-      background: var(--bg);
-      color: var(--text);
+      background: linear-gradient(135deg, #e3f2fd, #bbdefb);
       display: flex;
       justify-content: center;
       align-items: center;
       height: 100vh;
-      overflow: hidden;
-      transition: background 0.3s ease, color 0.3s ease;
     }
 
     .form-container {
-      background-color: var(--card-bg);
+      background-color: #fff;
       padding: 30px;
-      border-radius: 20px;
-      box-shadow: 0 8px 20px var(--shadow);
+      border-radius: 16px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
       width: 420px;
-      position: relative;
-      overflow: hidden;
-      transition: background 0.3s ease;
+      transition: 0.3s;
     }
 
     h2 {
       text-align: center;
-      color: var(--text);
       margin-bottom: 20px;
+      color: #333;
+    }
+
+    /* Progress bar */
+    .progress-container {
+      width: 100%;
+      background-color: #eee;
+      border-radius: 8px;
+      overflow: hidden;
+      margin-bottom: 15px;
+      height: 12px;
+    }
+
+    .progress-bar {
+      height: 12px;
+      background-color: #007bff;
+      width: 0%;
+      transition: width 0.4s ease;
+    }
+
+    .progress-text {
+      text-align: center;
+      margin-bottom: 10px;
+      font-size: 14px;
+      color: #555;
     }
 
     .step {
-      position: absolute;
-      width: 100%;
-      opacity: 0;
-      transform: translateX(100%);
-      transition: all 0.5s ease;
+      display: none;
+      animation: fadeIn 0.4s ease-in-out;
     }
 
     .step.active {
-      opacity: 1;
-      transform: translateX(0);
-      position: relative;
+      display: block;
     }
 
-    .step.prev {
-      transform: translateX(-100%);
+    @keyframes fadeIn {
+      from {opacity: 0; transform: translateY(10px);}
+      to {opacity: 1; transform: translateY(0);}
     }
 
     input, select, button {
       width: 100%;
       padding: 10px;
       margin: 8px 0;
-      border-radius: 8px;
+      border-radius: 6px;
       border: 1px solid #ccc;
-      font-size: 16px;
-      background: transparent;
-      color: var(--text);
+      font-size: 15px;
     }
 
-    select option {
-      color: black;
+    label {
+      display: block;
+      margin-top: 10px;
+      color: #333;
     }
 
-    button {
-      background-color: var(--primary);
-      color: white;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      padding: 10px;
-      font-size: 16px;
-      transition: 0.3s;
-    }
-
-    button:hover {
-      background-color: var(--primary-dark);
-    }
-
-    .nav-buttons {
-      display: flex;
-      justify-content: space-between;
-      gap: 10px;
-    }
-
-    .radio-group label, .checkbox-group label {
+    .radio-group label,
+    .checkbox-group label {
       display: block;
       margin: 5px 0;
       cursor: pointer;
     }
 
+    button {
+      background-color: #007bff;
+      color: white;
+      border: none;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
     .message {
-      margin-top: 20px;
+      margin-top: 15px;
+      padding: 10px;
       background-color: #d4edda;
       color: #155724;
-      padding: 15px;
-      border-radius: 8px;
+      border-radius: 6px;
       display: none;
-      text-align: center;
-    }
-
-    body.dark .message {
-      background-color: #1e4620;
-      color: #a8e6a3;
-    }
-
-    .progress {
-      width: 100%;
-      background: #e9ecef;
-      border-radius: 10px;
-      overflow: hidden;
-      margin-bottom: 20px;
-      height: 10px;
-    }
-
-    body.dark .progress {
-      background: #333;
-    }
-
-    .progress-bar {
-      height: 10px;
-      background: linear-gradient(90deg, var(--primary), #66b2ff);
-      width: 0%;
-      transition: width 0.5s ease;
-    }
-
-    .toggle-theme {
-      position: absolute;
-      top: 15px;
-      right: 15px;
-      background: none;
-      border: none;
-      font-size: 24px;
-      cursor: pointer;
-      color: var(--primary);
-      transition: transform 0.3s ease;
-    }
-
-    .toggle-theme:hover {
-      transform: rotate(20deg);
     }
   </style>
 </head>
 <body>
   <div class="form-container">
-    <button class="toggle-theme" id="themeToggle">🌙</button>
-    <h2>Form Pendaftaran</h2>
+    <h2>Form Interaktif Multi-Step</h2>
 
-    <div class="progress"><div class="progress-bar" id="progressBar"></div></div>
+    <!-- Progress -->
+    <div class="progress-text" id="progressText">Langkah 1 dari 3</div>
+    <div class="progress-container">
+      <div class="progress-bar" id="progressBar"></div>
+    </div>
 
     <form id="multiStepForm">
-      <!-- STEP 1 -->
+      <!-- Step 1 -->
       <div class="step active" id="step1">
         <input type="text" id="name" placeholder="Nama Lengkap" required>
         <select id="role" required>
@@ -181,131 +130,143 @@
           <option value="siswa">Siswa</option>
           <option value="guru">Guru</option>
         </select>
-        <div class="nav-buttons">
-          <button type="button" id="next1">Lanjut</button>
-        </div>
+        <button type="button" id="next1">Lanjut</button>
       </div>
 
-      <!-- STEP 2 -->
+      <!-- Step 2 -->
       <div class="step" id="step2">
         <div id="dynamicQuestion"></div>
-        <div class="nav-buttons">
-          <button type="button" id="prev2">Kembali</button>
-          <button type="button" id="next2">Lanjut</button>
-        </div>
+        <button type="button" id="prev2">Kembali</button>
+        <button type="button" id="next2">Lanjut</button>
       </div>
 
-      <!-- STEP 3 -->
+      <!-- Step 3 (Minat Utama & Tambahan) -->
       <div class="step" id="step3">
-        <h3>Pilih Minat Utama</h3>
+        <label><strong>Pilih satu minat utama:</strong></label>
         <div class="radio-group">
-          <label><input type="radio" name="mainInterest" value="Teknologi" required> Teknologi</label>
-          <label><input type="radio" name="mainInterest" value="Olahraga"> Olahraga</label>
-          <label><input type="radio" name="mainInterest" value="Seni"> Seni</label>
-          <label><input type="radio" name="mainInterest" value="Musik"> Musik</label>
+          <label><input type="radio" name="minatUtama" value="Teknologi"> Teknologi</label>
+          <label><input type="radio" name="minatUtama" value="Olahraga"> Olahraga</label>
+          <label><input type="radio" name="minatUtama" value="Musik"> Musik</label>
+          <label><input type="radio" name="minatUtama" value="Seni"> Seni</label>
         </div>
-        <div class="nav-buttons">
-          <button type="button" id="prev3">Kembali</button>
-          <button type="button" id="next3">Lanjut</button>
-        </div>
-      </div>
 
-      <!-- STEP 4 -->
-      <div class="step" id="step4">
-        <h3>Pilih Minat Tambahan</h3>
-        <p>(Opsional — bisa pilih lebih dari satu)</p>
+        <label><strong>Pilih minat tambahan:</strong></label>
         <div class="checkbox-group">
-          <label><input type="checkbox" name="extraInterest" value="Teknologi"> Teknologi</label>
-          <label><input type="checkbox" name="extraInterest" value="Olahraga"> Olahraga</label>
-          <label><input type="checkbox" name="extraInterest" value="Seni"> Seni</label>
-          <label><input type="checkbox" name="extraInterest" value="Musik"> Musik</label>
-          <label><input type="checkbox" name="extraInterest" value="Kuliner"> Kuliner</label>
+          <label><input type="checkbox" name="minatTambahan" value="Membaca"> Membaca</label>
+          <label><input type="checkbox" name="minatTambahan" value="Menulis"> Menulis</label>
+          <label><input type="checkbox" name="minatTambahan" value="Desain"> Desain</label>
+          <label><input type="checkbox" name="minatTambahan" value="Coding"> Coding</label>
         </div>
-        <div class="nav-buttons">
-          <button type="button" id="prev4">Kembali</button>
-          <button type="submit">Kirim</button>
-        </div>
+
+        <button type="button" id="prev3">Kembali</button>
+        <button type="submit">Kirim</button>
       </div>
     </form>
-
     <div class="message" id="message"></div>
   </div>
 
   <script>
-    const steps = document.querySelectorAll('.step');
+    const step1 = document.getElementById('step1');
+    const step2 = document.getElementById('step2');
+    const step3 = document.getElementById('step3');
+    const next1 = document.getElementById('next1');
+    const next2 = document.getElementById('next2');
+    const prev2 = document.getElementById('prev2');
+    const prev3 = document.getElementById('prev3');
     const form = document.getElementById('multiStepForm');
-    const progressBar = document.getElementById('progressBar');
-    const message = document.getElementById('message');
     const dynamicQuestion = document.getElementById('dynamicQuestion');
-    const themeToggle = document.getElementById('themeToggle');
-    let currentStep = 0;
+    const message = document.getElementById('message');
+    const progressBar = document.getElementById('progressBar');
+    const progressText = document.getElementById('progressText');
 
-    const showStep = (index) => {
-      steps.forEach((step, i) => {
-        step.classList.remove('active', 'prev');
-        if (i === index) step.classList.add('active');
-        else if (i < index) step.classList.add('prev');
-      });
-      progressBar.style.width = ((index + 1) / steps.length) * 100 + '%';
-    };
+    function updateProgress(step) {
+      const total = 3;
+      const percent = (step / total) * 100;
+      progressBar.style.width = percent + '%';
+      progressText.textContent = `Langkah ${step} dari ${total}`;
+    }
 
-    document.getElementById('next1').addEventListener('click', () => {
-      const name = document.getElementById('name').value.trim();
+    next1.addEventListener('click', () => {
+      const name = document.getElementById('name').value;
       const role = document.getElementById('role').value;
-      if (!name || !role) return alert('Harap isi semua kolom.');
+      if (!name || !role) {
+        alert("Harap isi semua kolom.");
+        return;
+      }
 
-      dynamicQuestion.innerHTML = role === 'siswa'
-        ? `<label>Nama Sekolah</label><input type="text" id="school" placeholder="Nama Sekolah" required>`
-        : `<label>Mata Pelajaran</label><input type="text" id="subject" placeholder="Mata Pelajaran" required>`;
+      if (role === "siswa") {
+        dynamicQuestion.innerHTML = `
+          <label>Nama Sekolah</label>
+          <input type="text" id="school" placeholder="Nama Sekolah" required>
+        `;
+      } else if (role === "guru") {
+        dynamicQuestion.innerHTML = `
+          <label>Mata Pelajaran</label>
+          <input type="text" id="subject" placeholder="Mata Pelajaran" required>
+        `;
+      }
 
-      showStep(++currentStep);
+      step1.classList.remove('active');
+      step2.classList.add('active');
+      updateProgress(2);
     });
 
-    document.getElementById('prev2').addEventListener('click', () => showStep(--currentStep));
-    document.getElementById('next2').addEventListener('click', () => {
-      const role = document.getElementById('role').value;
-      const inputId = role === 'siswa' ? 'school' : 'subject';
-      if (!document.getElementById(inputId).value.trim()) return alert('Harap isi kolom tersebut.');
-      showStep(++currentStep);
+    prev2.addEventListener('click', () => {
+      step2.classList.remove('active');
+      step1.classList.add('active');
+      updateProgress(1);
     });
 
-    document.getElementById('prev3').addEventListener('click', () => showStep(--currentStep));
-    document.getElementById('next3').addEventListener('click', () => {
-      const mainInterest = document.querySelector('input[name="mainInterest"]:checked');
-      if (!mainInterest) return alert('Pilih satu minat utama terlebih dahulu.');
-      showStep(++currentStep);
+    next2.addEventListener('click', () => {
+      step2.classList.remove('active');
+      step3.classList.add('active');
+      updateProgress(3);
     });
 
-    document.getElementById('prev4').addEventListener('click', () => showStep(--currentStep));
+    prev3.addEventListener('click', () => {
+      step3.classList.remove('active');
+      step2.classList.add('active');
+      updateProgress(2);
+    });
 
     form.addEventListener('submit', (e) => {
       e.preventDefault();
       const name = document.getElementById('name').value;
       const role = document.getElementById('role').value;
-      const info = role === 'siswa'
-        ? document.getElementById('school').value
-        : document.getElementById('subject').value;
-      const mainInterest = document.querySelector('input[name="mainInterest"]:checked').value;
-      const extraInterests = Array.from(document.querySelectorAll('input[name="extraInterest"]:checked')).map(e => e.value);
+      let extraInfo = '';
+      if (role === "siswa") {
+        extraInfo = document.getElementById('school').value;
+      } else {
+        extraInfo = document.getElementById('subject').value;
+      }
 
-      message.innerHTML = `
-        <strong>Terima kasih, ${name}!</strong><br>
-        Anda terdaftar sebagai <strong>${role}</strong> (${info}).<br>
-        Minat utama: <strong>${mainInterest}</strong><br>
-        Minat tambahan: <strong>${extraInterests.join(', ') || 'Tidak ada'}</strong>
-      `;
+      const minatUtama = document.querySelector('input[name="minatUtama"]:checked');
+      const minatTambahan = Array.from(document.querySelectorAll('input[name="minatTambahan"]:checked'))
+        .map(cb => cb.value);
+
+      if (!minatUtama) {
+        alert("Pilih satu minat utama!");
+        return;
+      }
+
       message.style.display = 'block';
+      message.innerHTML = `
+        ✅ <strong>Data Berhasil Dikirim!</strong><br><br>
+        Nama: <strong>${name}</strong><br>
+        Peran: <strong>${role}</strong><br>
+        Info tambahan: <strong>${extraInfo}</strong><br>
+        Minat utama: <strong>${minatUtama.value}</strong><br>
+        Minat tambahan: <strong>${minatTambahan.join(', ') || 'Tidak ada'}</strong>
+      `;
 
       form.reset();
-      currentStep = 0;
-      showStep(currentStep);
+      step3.classList.remove('active');
+      step1.classList.add('active');
+      updateProgress(1);
     });
 
-    // Dark mode toggle
-    themeToggle.addEventListener('click', () => {
-      document.body.classList.toggle('dark');
-      themeToggle.textContent = document.body.classList.contains('dark') ? '☀️' : '🌙';
-    });
+    // Set default progress
+    updateProgress(1);
   </script>
 </body>
 </html>
