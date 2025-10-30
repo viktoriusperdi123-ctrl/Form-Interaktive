@@ -10,12 +10,11 @@ body {
 
 /* Toggle container (pojok kanan atas) */
 .toggle-container {
-  position: relative;
-  display: flex;
-  justify-content: center;
-  margin-bottom: 5px;
+  position: fixed;
+  top: 20px;
+  right: 30px;
+  z-index: 1000;
 }
-
 
 /* Switch styling */
 .switch {
