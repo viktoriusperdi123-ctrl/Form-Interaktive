@@ -7,6 +7,7 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <!-- Toggle Dark Mode -->
   <div class="toggle-container">
     <label class="switch">
       <input type="checkbox" id="darkToggle">
@@ -15,24 +16,20 @@
   </div>
 
   <div class="form-container">
-    <h2>Form Interaktif Multi-Step</h2>
+    <h2 class="form-title">Form Interaktif Multi-Step</h2>
 
+    <!-- Progress -->
     <div class="progress-text" id="progressText">Langkah 1 dari 3</div>
     <div class="progress-container">
       <div class="progress-bar" id="progressBar"></div>
     </div>
 
-    <form id="multiStepForm" action="https://formspree.io/f/{your_form_id}" method="POST">
-      <!-- Hidden inputs untuk Formspree -->
-      <input type="hidden" name="minatUtama" id="hiddenMinatUtama">
-      <input type="hidden" name="minatTambahan" id="hiddenMinatTambahan">
-      <input type="hidden" name="extraInfo" id="hiddenExtraInfo">
-
+    <form id="multiStepForm">
       <!-- Step 1 -->
       <div class="step active" id="step1">
-        <input type="text" id="name" name="name" placeholder="Nama Lengkap" required>
-        <input type="email" id="email" name="email" placeholder="Alamat Email" required>
-        <select id="role" name="role" required>
+        <input type="text" id="name" placeholder="Nama Lengkap" required>
+        <input type="email" id="email" placeholder="Alamat Email" required>
+        <select id="role" required>
           <option value="">Pilih Peran</option>
           <option value="siswa">Siswa</option>
           <option value="guru">Guru</option>
@@ -52,18 +49,18 @@
       <div class="step" id="step3">
         <label><strong>Pilih satu minat utama:</strong></label>
         <div class="radio-group">
-          <label><input type="radio" name="minatUtamaRadio" value="Teknologi"> Teknologi</label>
-          <label><input type="radio" name="minatUtamaRadio" value="Olahraga"> Olahraga</label>
-          <label><input type="radio" name="minatUtamaRadio" value="Musik"> Musik</label>
-          <label><input type="radio" name="minatUtamaRadio" value="Seni"> Seni</label>
+          <label><input type="radio" name="minatUtama" value="Teknologi"> Teknologi</label>
+          <label><input type="radio" name="minatUtama" value="Olahraga"> Olahraga</label>
+          <label><input type="radio" name="minatUtama" value="Musik"> Musik</label>
+          <label><input type="radio" name="minatUtama" value="Seni"> Seni</label>
         </div>
 
         <label><strong>Pilih minat tambahan:</strong></label>
         <div class="checkbox-group">
-          <label><input type="checkbox" name="minatTambahanCheckbox" value="Membaca"> Membaca</label>
-          <label><input type="checkbox" name="minatTambahanCheckbox" value="Menulis"> Menulis</label>
-          <label><input type="checkbox" name="minatTambahanCheckbox" value="Desain"> Desain</label>
-          <label><input type="checkbox" name="minatTambahanCheckbox" value="Coding"> Coding</label>
+          <label><input type="checkbox" name="minatTambahan" value="Membaca"> Membaca</label>
+          <label><input type="checkbox" name="minatTambahan" value="Menulis"> Menulis</label>
+          <label><input type="checkbox" name="minatTambahan" value="Desain"> Desain</label>
+          <label><input type="checkbox" name="minatTambahan" value="Coding"> Coding</label>
         </div>
 
         <button type="button" id="prev3">Kembali</button>
