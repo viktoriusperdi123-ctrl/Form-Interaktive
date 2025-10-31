@@ -12,8 +12,6 @@ const progressBar = document.getElementById('progressBar');
 const progressText = document.getElementById('progressText');
 const errorMessage = document.getElementById('errorMessage');
 const darkToggle = document.getElementById('darkToggle');
-const errorMessage = document.getElementById('errorMessage');
-
 
 // Progress bar
 function updateProgress(step) {
