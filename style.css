@@ -1,125 +1,25 @@
-/* ====== RESET & DASAR ====== */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: 'Poppins', sans-serif;
-}
-
 body {
-  background-color: #f5f5f5;
-  color: #222;
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(135deg, #e3f2fd, #bbdefb);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  min-height: 100vh;
-  transition: background-color 0.4s ease, color 0.4s ease;
+  height: 100vh;
+  margin: 0;
+  transition: background 0.3s ease, color 0.3s ease;
 }
 
-/* ====== JUDUL ====== */
 h1 {
-  text-align: center;
   font-size: 2em;
-  margin-bottom: 20px;
   color: #222;
+  margin-bottom: 20px;
   transition: color 0.3s ease;
 }
 
-/* Saat mode gelap */
-body.dark-mode {
-  background-color: #121212;
-  color: #f5f5f5;
-}
-
-body.dark-mode h1 {
-  color: #ffffff; /* agar terlihat jelas di mode gelap */
-}
-
-/* ====== FORM WRAPPER ====== */
-.form-container {
-  background: #fff;
-  padding: 25px 30px;
-  border-radius: 12px;
-  box-shadow: 0 0 20px rgba(0,0,0,0.1);
-  width: 90%;
-  max-width: 420px;
-  transition: background-color 0.4s ease, box-shadow 0.4s ease;
-}
-
-body.dark-mode .form-container {
-  background: #1e1e1e;
-  box-shadow: 0 0 25px rgba(255,255,255,0.05);
-}
-
-/* ====== INPUT, SELECT, BUTTON ====== */
-input, select {
-  width: 100%;
-  padding: 10px;
-  margin: 10px 0;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  font-size: 1em;
-  transition: all 0.3s ease;
-}
-
-input:focus, select:focus {
-  border-color: #007bff;
-  outline: none;
-  box-shadow: 0 0 5px rgba(0, 123, 255, 0.4);
-}
-
-body.dark-mode input, 
-body.dark-mode select {
-  background: #2a2a2a;
-  color: #f5f5f5;
-  border-color: #444;
-}
-
-/* ====== BUTTONS ====== */
-button {
-  padding: 10px 18px;
-  background: #007bff;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  font-size: 1em;
-  margin-top: 10px;
-  transition: background-color 0.3s ease, transform 0.2s ease;
-}
-
-button:hover {
-  background: #0056b3;
-  transform: translateY(-2px);
-}
-
-body.dark-mode button {
-  background: #2196f3;
-}
-
-/* ====== ERROR MESSAGE ====== */
-#errorMessage {
-  display: none;
-  color: #ff4444;
-  background: rgba(255, 68, 68, 0.1);
-  padding: 8px;
-  border-radius: 8px;
-  margin-bottom: 10px;
-  font-size: 0.9em;
-  text-align: center;
-  animation: fadeIn 0.3s ease-in;
-}
-
-/* Animasi muncul */
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(-5px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-/* ====== TOGGLE DARK MODE ====== */
+/* Toggle Mode */
 .toggle-container {
-  position: fixed;
+  position: absolute;
   top: 20px;
   right: 20px;
   display: flex;
@@ -127,37 +27,107 @@ body.dark-mode button {
   gap: 8px;
 }
 
-.toggle-container label {
-  font-size: 0.9em;
-  color: inherit;
-}
-
 .toggle-switch {
-  width: 45px;
+  width: 50px;
   height: 25px;
-  background: #ccc;
+  background-color: #ccc;
   border-radius: 25px;
   position: relative;
   cursor: pointer;
-  transition: background 0.3s ease;
+  transition: background-color 0.3s;
 }
 
-.toggle-switch::before {
+.toggle-switch::after {
   content: "";
-  position: absolute;
-  top: 3px;
-  left: 3px;
-  width: 19px;
-  height: 19px;
+  width: 21px;
+  height: 21px;
   background: white;
   border-radius: 50%;
-  transition: all 0.3s ease;
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  transition: 0.3s;
+}
+
+/* Form */
+.form-container {
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  width: 400px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.step {
+  display: none;
+  animation: fadeIn 0.4s ease-in-out;
+}
+
+.step.active {
+  display: block;
+}
+
+@keyframes fadeIn {
+  from {opacity: 0; transform: translateY(10px);}
+  to {opacity: 1; transform: translateY(0);}
+}
+
+input, select, textarea, button {
+  width: 100%;
+  padding: 10px;
+  margin-top: 8px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 15px;
+}
+
+button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+#errorMessage {
+  display: none;
+  background-color: #ffd7d7;
+  color: #b30000;
+  padding: 10px;
+  border-radius: 6px;
+  margin-bottom: 10px;
+}
+
+.buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+/* DARK MODE */
+body.dark-mode {
+  background: linear-gradient(135deg, #212121, #424242);
+  color: #f1f1f1;
+}
+
+body.dark-mode .form-container {
+  background-color: #2c2c2c;
+  color: #fff;
 }
 
 body.dark-mode .toggle-switch {
-  background: #2196f3;
+  background-color: #666;
 }
 
-body.dark-mode .toggle-switch::before {
-  transform: translateX(20px);
+body.dark-mode .toggle-switch::after {
+  transform: translateX(25px);
+}
+
+body.dark-mode h1 {
+  color: #fff;
 }
