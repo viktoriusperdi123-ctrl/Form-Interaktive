@@ -186,3 +186,15 @@ body.dark .progress-container {
 body.dark .progress-bar {
   background-color: #4b9cdb;
 }
+
+
+.error {
+  color: #d32f2f;
+  background: #ffcdd2;
+  padding: 8px;
+  border-radius: 6px;
+  margin-top: 10px;
+  font-size: 14px;
+  display: none;
+}
+
