@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Form Interaktif Multi-Step</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <!-- Toggle Dark Mode -->
@@ -27,15 +27,15 @@
     <form id="multiStepForm">
       <!-- Step 1 -->
       <div class="step active" id="step1">
-  <input type="text" id="name" placeholder="Nama Lengkap" required>
-  <input type="email" id="email" placeholder="Alamat Email" required>
-  <select id="role" required>
-    <option value="">Pilih Peran</option>
-    <option value="siswa">Siswa</option>
-    <option value="guru">Guru</option>
-  </select>
-  <button type="button" id="next1">Lanjut</button>
-</div>
+        <input type="text" id="name" placeholder="Nama Lengkap" required>
+        <input type="email" id="email" placeholder="Alamat Email" required>
+        <select id="role" required>
+          <option value="">Pilih Peran</option>
+          <option value="siswa">Siswa</option>
+          <option value="guru">Guru</option>
+        </select>
+        <button type="button" id="next1">Lanjut</button>
+      </div>
 
       <!-- Step 2 -->
       <div class="step" id="step2">
@@ -66,6 +66,8 @@
         <button type="submit">Kirim</button>
       </div>
     </form>
+
+    <div class="error" id="errorMessage"></div>
     <div class="message" id="message"></div>
   </div>
 
