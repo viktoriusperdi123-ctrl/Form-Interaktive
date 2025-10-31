@@ -1,19 +1,27 @@
-// Elemen-elemen utama
+// Steps
 const step1 = document.getElementById('step1');
 const step2 = document.getElementById('step2');
 const step3 = document.getElementById('step3');
+
 const next1 = document.getElementById('next1');
 const next2 = document.getElementById('next2');
 const prev2 = document.getElementById('prev2');
 const prev3 = document.getElementById('prev3');
+
 const form = document.getElementById('multiStepForm');
 const dynamicQuestion = document.getElementById('dynamicQuestion');
 const message = document.getElementById('message');
 const progressBar = document.getElementById('progressBar');
 const progressText = document.getElementById('progressText');
 const errorMessage = document.getElementById('errorMessage');
-const darkToggle = document.getElementById('darkToggle');
 
+// Dark Mode Toggle
+const darkToggle = document.getElementById('darkToggle');
+darkToggle.addEventListener('change', () => {
+  document.body.classList.toggle('dark-mode', darkToggle.checked);
+});
+
+// Update progress bar
 function updateProgress(step) {
   const total = 3;
   const percent = (step / total) * 100;
@@ -21,30 +29,25 @@ function updateProgress(step) {
   progressText.textContent = `Langkah ${step} dari ${total}`;
 }
 
-// Dark mode toggle
-darkToggle.addEventListener('change', () => {
-  document.body.classList.toggle('dark-mode', darkToggle.checked);
-});
-
+// Step 1 → Step 2
 next1.addEventListener('click', () => {
   const name = document.getElementById('name').value.trim();
   const email = document.getElementById('email').value.trim();
   const role = document.getElementById('role').value;
-
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
+  errorMessage.style.display = "none";
   errorMessage.textContent = "";
-  errorMessage.classList.remove("show");
 
   if (!name || !email || !role) {
     errorMessage.textContent = "⚠️ Harap isi semua kolom.";
-    errorMessage.classList.add("show");
+    errorMessage.style.display = "block";
     return;
   }
 
   if (!emailRegex.test(email)) {
     errorMessage.textContent = "❌ Format email tidak valid (contoh: nama@email.com)";
-    errorMessage.classList.add("show");
+    errorMessage.style.display = "block";
     return;
   }
 
@@ -65,24 +68,28 @@ next1.addEventListener('click', () => {
   updateProgress(2);
 });
 
+// Step 2 → Step 1
 prev2.addEventListener('click', () => {
   step2.classList.remove('active');
   step1.classList.add('active');
   updateProgress(1);
 });
 
+// Step 2 → Step 3
 next2.addEventListener('click', () => {
   step2.classList.remove('active');
   step3.classList.add('active');
   updateProgress(3);
 });
 
+// Step 3 → Step 2
 prev3.addEventListener('click', () => {
   step3.classList.remove('active');
   step2.classList.add('active');
   updateProgress(2);
 });
 
+// Submit form
 form.addEventListener('submit', (e) => {
   e.preventDefault();
   const name = document.getElementById('name').value;
