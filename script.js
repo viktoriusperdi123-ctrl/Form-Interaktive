@@ -22,13 +22,32 @@ function updateProgress(step) {
 
 // Step navigation
 next1.addEventListener('click', () => {
-  const name = document.getElementById('name').value;
+  const name = document.getElementById('name').value.trim();
+  const email = document.getElementById('email').value.trim();
   const role = document.getElementById('role').value;
-  if (!name || !role) {
-    alert("Harap isi semua kolom.");
+  const errorMessage = document.getElementById('errorMessage');
+
+  // Regex untuk email (contoh validasi umum)
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+  // Reset error
+  errorMessage.style.display = "none";
+  errorMessage.textContent = "";
+
+  // Validasi input
+  if (!name || !email || !role) {
+    errorMessage.textContent = "⚠️ Harap isi semua kolom.";
+    errorMessage.style.display = "block";
     return;
   }
 
+  if (!emailRegex.test(email)) {
+    errorMessage.textContent = "❌ Format email tidak valid (contoh: nama@email.com)";
+    errorMessage.style.display = "block";
+    return;
+  }
+
+  // Tampilkan pertanyaan sesuai peran
   if (role === "siswa") {
     dynamicQuestion.innerHTML = `
       <label>Nama Sekolah</label>
@@ -41,15 +60,10 @@ next1.addEventListener('click', () => {
     `;
   }
 
+  // Lanjut ke step 2
   step1.classList.remove('active');
   step2.classList.add('active');
   updateProgress(2);
-});
-
-prev2.addEventListener('click', () => {
-  step2.classList.remove('active');
-  step1.classList.add('active');
-  updateProgress(1);
 });
 
 next2.addEventListener('click', () => {
@@ -103,49 +117,3 @@ darkToggle.addEventListener('change', () => {
 
 // Set default progress
 updateProgress(1);
-
-next1.addEventListener('click', () => {
-  const name = document.getElementById('name').value.trim();
-  const email = document.getElementById('email').value.trim();
-  const role = document.getElementById('role').value;
-  const errorMessage = document.getElementById('errorMessage');
-
-  // Regex untuk email (contoh validasi umum)
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-  // Reset error
-  errorMessage.style.display = "none";
-  errorMessage.textContent = "";
-
-  // Validasi input
-  if (!name || !email || !role) {
-    errorMessage.textContent = "⚠️ Harap isi semua kolom.";
-    errorMessage.style.display = "block";
-    return;
-  }
-
-  if (!emailRegex.test(email)) {
-    errorMessage.textContent = "❌ Format email tidak valid (contoh: nama@email.com)";
-    errorMessage.style.display = "block";
-    return;
-  }
-
-  // Tampilkan pertanyaan sesuai peran
-  if (role === "siswa") {
-    dynamicQuestion.innerHTML = `
-      <label>Nama Sekolah</label>
-      <input type="text" id="school" placeholder="Nama Sekolah" required>
-    `;
-  } else if (role === "guru") {
-    dynamicQuestion.innerHTML = `
-      <label>Mata Pelajaran</label>
-      <input type="text" id="subject" placeholder="Mata Pelajaran" required>
-    `;
-  }
-
-  // Lanjut ke step 2
-  step1.classList.remove('active');
-  step2.classList.add('active');
-  updateProgress(2);
-});
-
