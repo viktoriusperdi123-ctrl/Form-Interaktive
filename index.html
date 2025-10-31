@@ -24,12 +24,17 @@
       <div class="progress-bar" id="progressBar"></div>
     </div>
 
-    <form id="multiStepForm">
+    <form id="multiStepForm" action="YOUR_FORMSPREE_URL" method="POST">
+      <!-- Honeypot & optional metadata -->
+      <input type="text" name="_honey" style="display:none">
+      <input type="hidden" name="_subject" value="Form Interaktif Multi-Step Submission">
+      <input type="hidden" name="_format" value="plain">
+
       <!-- Step 1 -->
       <div class="step active" id="step1">
-        <input type="text" id="name" placeholder="Nama Lengkap" required>
-        <input type="email" id="email" placeholder="Alamat Email" required>
-        <select id="role" required>
+        <input type="text" id="name" name="name" placeholder="Nama Lengkap" required>
+        <input type="email" id="email" name="email" placeholder="Alamat Email" required>
+        <select id="role" name="role" required>
           <option value="">Pilih Peran</option>
           <option value="siswa">Siswa</option>
           <option value="guru">Guru</option>
