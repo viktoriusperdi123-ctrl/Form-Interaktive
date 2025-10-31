@@ -13,7 +13,6 @@ const progressText = document.getElementById('progressText');
 const errorMessage = document.getElementById('errorMessage');
 const darkToggle = document.getElementById('darkToggle');
 
-// Progress bar
 function updateProgress(step) {
   const total = 3;
   const percent = (step / total) * 100;
@@ -21,7 +20,11 @@ function updateProgress(step) {
   progressText.textContent = `Langkah ${step} dari ${total}`;
 }
 
-// Validasi Step 1 dengan regex email
+// Dark mode toggle
+darkToggle.addEventListener('change', () => {
+  document.body.classList.toggle('dark-mode', darkToggle.checked);
+});
+
 next1.addEventListener('click', () => {
   const name = document.getElementById('name').value.trim();
   const email = document.getElementById('email').value.trim();
@@ -29,18 +32,18 @@ next1.addEventListener('click', () => {
 
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-  errorMessage.style.display = "none";
   errorMessage.textContent = "";
+  errorMessage.classList.remove("show");
 
   if (!name || !email || !role) {
     errorMessage.textContent = "⚠️ Harap isi semua kolom.";
-    errorMessage.style.display = "block";
+    errorMessage.classList.add("show");
     return;
   }
 
   if (!emailRegex.test(email)) {
     errorMessage.textContent = "❌ Format email tidak valid (contoh: nama@email.com)";
-    errorMessage.style.display = "block";
+    errorMessage.classList.add("show");
     return;
   }
 
@@ -79,7 +82,6 @@ prev3.addEventListener('click', () => {
   updateProgress(2);
 });
 
-// Submit
 form.addEventListener('submit', (e) => {
   e.preventDefault();
   const name = document.getElementById('name').value;
@@ -116,10 +118,5 @@ form.addEventListener('submit', (e) => {
   updateProgress(1);
 });
 
-// Toggle dark mode
-darkToggle.addEventListener('change', () => {
-  document.body.classList.toggle('dark', darkToggle.checked);
-});
-
-// Default progress
+// Set default progress
 updateProgress(1);
