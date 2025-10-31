@@ -195,3 +195,27 @@ body.dark-mode .form-title {
   color: #ffffff; /* Tetap putih di mode gelap */
   text-shadow: 0 0 6px rgba(255, 255, 255, 0.3); /* Tambah efek glow ringan */
 }
+
+/* --- Mode Gelap untuk teks form --- */
+body.dark-mode {
+  background: #121212; /* contoh background gelap */
+  color: #f0f0f0; /* teks default terang */
+}
+
+body.dark-mode input,
+body.dark-mode select,
+body.dark-mode button {
+  background-color: #1e1e1e;
+  color: #f0f0f0;
+  border: 1px solid #555;
+}
+
+body.dark-mode label {
+  color: #f0f0f0;
+}
+
+body.dark-mode .radio-group label,
+body.dark-mode .checkbox-group label {
+  color: #f0f0f0;
+}
+
