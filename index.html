@@ -8,7 +8,7 @@
 </head>
 <body>
 
-  <!-- Toggle Mode -->
+  <!-- Toggle Dark Mode -->
   <div class="toggle-container">
     <label for="darkModeToggle">🌙 Mode Gelap</label>
     <div class="toggle-switch" id="darkModeToggle"></div>
@@ -20,7 +20,7 @@
   <!-- Kontainer Form -->
   <div class="form-container">
     <form id="multiStepForm">
-      
+
       <!-- STEP 1 -->
       <div class="step active" id="step1">
         <div id="errorMessage"></div>
@@ -40,4 +40,32 @@
 
         <p>Pilih minat utama kamu:</p>
         <label><input type="radio" name="mainInterest" value="Teknologi" required> Teknologi</label><br>
-        <label><input type="
+        <label><input type="radio" name="mainInterest" value="Seni"> Seni</label><br>
+        <label><input type="radio" name="mainInterest" value="Olahraga"> Olahraga</label>
+
+        <p>Pilih minat tambahan kamu:</p>
+        <label><input type="checkbox" name="extraInterest" value="Musik"> Musik</label><br>
+        <label><input type="checkbox" name="extraInterest" value="Game"> Game</label><br>
+        <label><input type="checkbox" name="extraInterest" value="Desain"> Desain</label>
+
+        <div class="buttons">
+          <button type="button" id="prev2">Kembali</button>
+          <button type="button" id="next2">Lanjut</button>
+        </div>
+      </div>
+
+      <!-- STEP 3 -->
+      <div class="step" id="step3">
+        <textarea id="message" placeholder="Tulis pesan atau harapan kamu..." rows="4"></textarea>
+        <div class="buttons">
+          <button type="button" id="prev3">Kembali</button>
+          <button type="submit">Kirim</button>
+        </div>
+      </div>
+
+    </form>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
