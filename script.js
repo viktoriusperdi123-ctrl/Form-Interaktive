@@ -10,9 +10,10 @@ const dynamicQuestion = document.getElementById('dynamicQuestion');
 const message = document.getElementById('message');
 const progressBar = document.getElementById('progressBar');
 const progressText = document.getElementById('progressText');
+const errorMessage = document.getElementById('errorMessage');
 const darkToggle = document.getElementById('darkToggle');
 
-// Fungsi update progress bar
+// Progress bar
 function updateProgress(step) {
   const total = 3;
   const percent = (step / total) * 100;
@@ -20,21 +21,17 @@ function updateProgress(step) {
   progressText.textContent = `Langkah ${step} dari ${total}`;
 }
 
-// Step navigation
+// Validasi Step 1 dengan regex email
 next1.addEventListener('click', () => {
   const name = document.getElementById('name').value.trim();
   const email = document.getElementById('email').value.trim();
   const role = document.getElementById('role').value;
-  const errorMessage = document.getElementById('errorMessage');
 
-  // Regex untuk email (contoh validasi umum)
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-  // Reset error
   errorMessage.style.display = "none";
   errorMessage.textContent = "";
 
-  // Validasi input
   if (!name || !email || !role) {
     errorMessage.textContent = "⚠️ Harap isi semua kolom.";
     errorMessage.style.display = "block";
@@ -47,7 +44,6 @@ next1.addEventListener('click', () => {
     return;
   }
 
-  // Tampilkan pertanyaan sesuai peran
   if (role === "siswa") {
     dynamicQuestion.innerHTML = `
       <label>Nama Sekolah</label>
@@ -60,10 +56,15 @@ next1.addEventListener('click', () => {
     `;
   }
 
-  // Lanjut ke step 2
   step1.classList.remove('active');
   step2.classList.add('active');
   updateProgress(2);
+});
+
+prev2.addEventListener('click', () => {
+  step2.classList.remove('active');
+  step1.classList.add('active');
+  updateProgress(1);
 });
 
 next2.addEventListener('click', () => {
@@ -83,7 +84,12 @@ form.addEventListener('submit', (e) => {
   e.preventDefault();
   const name = document.getElementById('name').value;
   const role = document.getElementById('role').value;
-  let extraInfo = role === "siswa" ? document.getElementById('school').value : document.getElementById('subject').value;
+  let extraInfo = '';
+  if (role === "siswa") {
+    extraInfo = document.getElementById('school').value;
+  } else {
+    extraInfo = document.getElementById('subject').value;
+  }
 
   const minatUtama = document.querySelector('input[name="minatUtama"]:checked');
   const minatTambahan = Array.from(document.querySelectorAll('input[name="minatTambahan"]:checked'))
@@ -110,10 +116,10 @@ form.addEventListener('submit', (e) => {
   updateProgress(1);
 });
 
-// Dark mode toggle
+// Toggle dark mode
 darkToggle.addEventListener('change', () => {
   document.body.classList.toggle('dark', darkToggle.checked);
 });
 
-// Set default progress
+// Default progress
 updateProgress(1);
