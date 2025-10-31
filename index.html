@@ -7,23 +7,25 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
-  <!-- Toggle Dark Mode -->
   <div class="toggle-container">
-    <label for="darkModeToggle">🌙 Mode Gelap</label>
-    <div class="toggle-switch" id="darkModeToggle"></div>
+    <label class="switch">
+      <input type="checkbox" id="darkToggle">
+      <span class="slider"></span>
+    </label>
   </div>
 
-  <!-- Judul -->
-  <h1>Form Interaktif Multi-Step</h1>
-
-  <!-- Kontainer Form -->
   <div class="form-container">
-    <form id="multiStepForm">
+    <h2>Form Interaktif Multi-Step</h2>
 
-      <!-- STEP 1 -->
+    <!-- Progress -->
+    <div class="progress-text" id="progressText">Langkah 1 dari 3</div>
+    <div class="progress-container">
+      <div class="progress-bar" id="progressBar"></div>
+    </div>
+
+    <form id="multiStepForm">
+      <!-- Step 1 -->
       <div class="step active" id="step1">
-        <div id="errorMessage"></div>
         <input type="text" id="name" placeholder="Nama Lengkap" required>
         <input type="email" id="email" placeholder="Alamat Email" required>
         <select id="role" required>
@@ -32,38 +34,40 @@
           <option value="guru">Guru</option>
         </select>
         <button type="button" id="next1">Lanjut</button>
+        <div id="errorMessage" class="error-message"></div>
       </div>
 
-      <!-- STEP 2 -->
+      <!-- Step 2 -->
       <div class="step" id="step2">
         <div id="dynamicQuestion"></div>
-
-        <p>Pilih minat utama kamu:</p>
-        <label><input type="radio" name="mainInterest" value="Teknologi" required> Teknologi</label><br>
-        <label><input type="radio" name="mainInterest" value="Seni"> Seni</label><br>
-        <label><input type="radio" name="mainInterest" value="Olahraga"> Olahraga</label>
-
-        <p>Pilih minat tambahan kamu:</p>
-        <label><input type="checkbox" name="extraInterest" value="Musik"> Musik</label><br>
-        <label><input type="checkbox" name="extraInterest" value="Game"> Game</label><br>
-        <label><input type="checkbox" name="extraInterest" value="Desain"> Desain</label>
-
-        <div class="buttons">
-          <button type="button" id="prev2">Kembali</button>
-          <button type="button" id="next2">Lanjut</button>
-        </div>
+        <button type="button" id="prev2">Kembali</button>
+        <button type="button" id="next2">Lanjut</button>
       </div>
 
-      <!-- STEP 3 -->
+      <!-- Step 3 -->
       <div class="step" id="step3">
-        <textarea id="message" placeholder="Tulis pesan atau harapan kamu..." rows="4"></textarea>
-        <div class="buttons">
-          <button type="button" id="prev3">Kembali</button>
-          <button type="submit">Kirim</button>
+        <label><strong>Pilih satu minat utama:</strong></label>
+        <div class="radio-group">
+          <label><input type="radio" name="minatUtama" value="Teknologi"> Teknologi</label>
+          <label><input type="radio" name="minatUtama" value="Olahraga"> Olahraga</label>
+          <label><input type="radio" name="minatUtama" value="Musik"> Musik</label>
+          <label><input type="radio" name="minatUtama" value="Seni"> Seni</label>
         </div>
-      </div>
 
+        <label><strong>Pilih minat tambahan:</strong></label>
+        <div class="checkbox-group">
+          <label><input type="checkbox" name="minatTambahan" value="Membaca"> Membaca</label>
+          <label><input type="checkbox" name="minatTambahan" value="Menulis"> Menulis</label>
+          <label><input type="checkbox" name="minatTambahan" value="Desain"> Desain</label>
+          <label><input type="checkbox" name="minatTambahan" value="Coding"> Coding</label>
+        </div>
+
+        <button type="button" id="prev3">Kembali</button>
+        <button type="submit">Kirim</button>
+      </div>
     </form>
+
+    <div class="message" id="message"></div>
   </div>
 
   <script src="script.js"></script>
