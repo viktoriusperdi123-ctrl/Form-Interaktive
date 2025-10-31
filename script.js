@@ -1,15 +1,13 @@
-// === STEP ELEMENTS ===
+// Steps
 const step1 = document.getElementById('step1');
 const step2 = document.getElementById('step2');
 const step3 = document.getElementById('step3');
 
-// === BUTTONS ===
 const next1 = document.getElementById('next1');
 const next2 = document.getElementById('next2');
 const prev2 = document.getElementById('prev2');
 const prev3 = document.getElementById('prev3');
 
-// === FORM & OTHER ELEMENTS ===
 const form = document.getElementById('multiStepForm');
 const dynamicQuestion = document.getElementById('dynamicQuestion');
 const message = document.getElementById('message');
@@ -17,13 +15,13 @@ const progressBar = document.getElementById('progressBar');
 const progressText = document.getElementById('progressText');
 const errorMessage = document.getElementById('errorMessage');
 
-// === DARK MODE TOGGLE ===
+// Dark Mode Toggle
 const darkToggle = document.getElementById('darkToggle');
 darkToggle.addEventListener('change', () => {
   document.body.classList.toggle('dark-mode', darkToggle.checked);
 });
 
-// === PROGRESS BAR FUNCTION ===
+// Update progress bar
 function updateProgress(step) {
   const total = 3;
   const percent = (step / total) * 100;
@@ -31,7 +29,7 @@ function updateProgress(step) {
   progressText.textContent = `Langkah ${step} dari ${total}`;
 }
 
-// === STEP 1 → STEP 2 ===
+// Step 1 → Step 2
 next1.addEventListener('click', () => {
   const name = document.getElementById('name').value.trim();
   const email = document.getElementById('email').value.trim();
@@ -53,7 +51,6 @@ next1.addEventListener('click', () => {
     return;
   }
 
-  // Tambahkan field dinamis
   if (role === "siswa") {
     dynamicQuestion.innerHTML = `
       <label>Nama Sekolah</label>
@@ -71,44 +68,28 @@ next1.addEventListener('click', () => {
   updateProgress(2);
 });
 
-// === STEP 2 → STEP 1 ===
+// Step 2 → Step 1
 prev2.addEventListener('click', () => {
   step2.classList.remove('active');
   step1.classList.add('active');
   updateProgress(1);
 });
 
-// === STEP 2 → STEP 3 ===
+// Step 2 → Step 3
 next2.addEventListener('click', () => {
-  // Cek input dinamis step2 sebelum lanjut
-  const role = document.getElementById('role').value;
-  let valid = true;
-  if (role === "siswa") {
-    const school = document.getElementById('school').value.trim();
-    if (!school) valid = false;
-  } else if (role === "guru") {
-    const subject = document.getElementById('subject').value.trim();
-    if (!subject) valid = false;
-  }
-
-  if (!valid) {
-    alert("⚠️ Harap isi kolom tambahan di langkah 2.");
-    return;
-  }
-
   step2.classList.remove('active');
   step3.classList.add('active');
   updateProgress(3);
 });
 
-// === STEP 3 → STEP 2 ===
+// Step 3 → Step 2
 prev3.addEventListener('click', () => {
   step3.classList.remove('active');
   step2.classList.add('active');
   updateProgress(2);
 });
 
-// === SUBMIT FORM ===
+// Submit form
 form.addEventListener('submit', (e) => {
   e.preventDefault();
   const name = document.getElementById('name').value;
@@ -142,9 +123,8 @@ form.addEventListener('submit', (e) => {
   form.reset();
   step3.classList.remove('active');
   step1.classList.add('active');
-  dynamicQuestion.innerHTML = "";
   updateProgress(1);
 });
 
-// === SET DEFAULT PROGRESS ===
+// Set default progress
 updateProgress(1);
