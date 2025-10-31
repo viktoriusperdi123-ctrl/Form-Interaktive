@@ -1,195 +1,163 @@
-body {
+/* ====== RESET & DASAR ====== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
   font-family: 'Poppins', sans-serif;
-  background: linear-gradient(135deg, #e3f2fd, #bbdefb);
+}
+
+body {
+  background-color: #f5f5f5;
+  color: #222;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
-  height: 100vh;
-  transition: background 0.3s;
+  justify-content: center;
+  min-height: 100vh;
+  transition: background-color 0.4s ease, color 0.4s ease;
 }
 
-.form-container {
-  background-color: #fff;
-  padding: 30px;
-  border-radius: 16px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-  width: 420px;
-  transition: 0.3s;
-}
-
-h2 {
-  text-align: center;
-  margin-bottom: 20px;
-  color: #333;
-}
-
-/* Progress bar */
-.progress-container {
-  width: 100%;
-  background-color: #eee;
-  border-radius: 8px;
-  overflow: hidden;
-  margin-bottom: 15px;
-  height: 12px;
-}
-
-.progress-bar {
-  height: 12px;
-  background-color: #007bff;
-  width: 0%;
-  transition: width 0.4s ease;
-}
-
-.progress-text {
-  text-align: center;
-  margin-bottom: 10px;
-  font-size: 14px;
-  color: #555;
-}
-
-.step {
-  display: none;
-  animation: fadeIn 0.4s ease-in-out;
-}
-
-.step.active {
-  display: block;
-}
-
-@keyframes fadeIn {
-  from {opacity: 0; transform: translateY(10px);}
-  to {opacity: 1; transform: translateY(0);}
-}
-
-input, select, button {
-  width: 100%;
-  padding: 10px;
-  margin: 8px 0;
-  border-radius: 6px;
-  border: 1px solid #ccc;
-  font-size: 15px;
-}
-
-label {
-  display: block;
-  margin-top: 10px;
-  color: #333;
-}
-
-.radio-group label,
-.checkbox-group label {
-  display: block;
-  margin: 5px 0;
-  cursor: pointer;
-}
-
-button {
-  background-color: #007bff;
-  color: white;
-  border: none;
-  cursor: pointer;
-  transition: 0.3s;
-}
-
-button:hover {
-  background-color: #0056b3;
-}
-
-.message {
-  margin-top: 15px;
-  padding: 10px;
-  background-color: #d4edda;
-  color: #155724;
-  border-radius: 6px;
-  display: none;
-}
-
-.error-message {
-  color: #e53935;
-  font-size: 14px;
-  margin-top: 5px;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
-
-.error-message.show {
-  opacity: 1;
-}
-
-/* Toggle Dark Mode */
-.toggle-container {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-}
-
-.switch {
-  position: relative;
-  display: inline-block;
-  width: 50px;
-  height: 26px;
-}
-
-.switch input {display: none;}
-
-.slider {
-  position: absolute;
-  cursor: pointer;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: #ccc;
-  transition: .4s;
-  border-radius: 26px;
-}
-
-.slider:before {
-  position: absolute;
-  content: "";
-  height: 20px;
-  width: 20px;
-  left: 3px;
-  bottom: 3px;
-  background-color: white;
-  transition: .4s;
-  border-radius: 50%;
-}
-
-input:checked + .slider {
-  background-color: #007bff;
-}
-
-input:checked + .slider:before {
-  transform: translateX(24px);
-}
-
-body.dark-mode {
-  background: linear-gradient(135deg, #212121, #424242);
-}
-
-body.dark-mode .form-container {
-  background-color: #333;
-  color: #eee;
-}
-
-body.dark-mode input,
-body.dark-mode select {
-  background-color: #555;
-  color: white;
-  border-color: #666;
-}
-
-/* Judul utama */
+/* ====== JUDUL ====== */
 h1 {
   text-align: center;
   font-size: 2em;
   margin-bottom: 20px;
-  color: #222; /* Warna teks gelap untuk mode terang */
+  color: #222;
   transition: color 0.3s ease;
 }
 
-/* Saat mode gelap aktif */
+/* Saat mode gelap */
+body.dark-mode {
+  background-color: #121212;
+  color: #f5f5f5;
+}
+
 body.dark-mode h1 {
-  color: #ffffff; /* Warna putih agar terlihat di mode gelap */
+  color: #ffffff; /* agar terlihat jelas di mode gelap */
+}
+
+/* ====== FORM WRAPPER ====== */
+.form-container {
+  background: #fff;
+  padding: 25px 30px;
+  border-radius: 12px;
+  box-shadow: 0 0 20px rgba(0,0,0,0.1);
+  width: 90%;
+  max-width: 420px;
+  transition: background-color 0.4s ease, box-shadow 0.4s ease;
+}
+
+body.dark-mode .form-container {
+  background: #1e1e1e;
+  box-shadow: 0 0 25px rgba(255,255,255,0.05);
+}
+
+/* ====== INPUT, SELECT, BUTTON ====== */
+input, select {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1em;
+  transition: all 0.3s ease;
+}
+
+input:focus, select:focus {
+  border-color: #007bff;
+  outline: none;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.4);
+}
+
+body.dark-mode input, 
+body.dark-mode select {
+  background: #2a2a2a;
+  color: #f5f5f5;
+  border-color: #444;
+}
+
+/* ====== BUTTONS ====== */
+button {
+  padding: 10px 18px;
+  background: #007bff;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1em;
+  margin-top: 10px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+button:hover {
+  background: #0056b3;
+  transform: translateY(-2px);
+}
+
+body.dark-mode button {
+  background: #2196f3;
+}
+
+/* ====== ERROR MESSAGE ====== */
+#errorMessage {
+  display: none;
+  color: #ff4444;
+  background: rgba(255, 68, 68, 0.1);
+  padding: 8px;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  font-size: 0.9em;
+  text-align: center;
+  animation: fadeIn 0.3s ease-in;
+}
+
+/* Animasi muncul */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ====== TOGGLE DARK MODE ====== */
+.toggle-container {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.toggle-container label {
+  font-size: 0.9em;
+  color: inherit;
+}
+
+.toggle-switch {
+  width: 45px;
+  height: 25px;
+  background: #ccc;
+  border-radius: 25px;
+  position: relative;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.toggle-switch::before {
+  content: "";
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 19px;
+  height: 19px;
+  background: white;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+}
+
+body.dark-mode .toggle-switch {
+  background: #2196f3;
+}
+
+body.dark-mode .toggle-switch::before {
+  transform: translateX(20px);
 }
