@@ -54,12 +54,12 @@ next1.addEventListener('click', () => {
   if (role === "siswa") {
     dynamicQuestion.innerHTML = `
       <label>Nama Sekolah</label>
-      <input type="text" id="school" placeholder="Nama Sekolah" required>
+      <input type="text" id="school" name="school" placeholder="Nama Sekolah" required>
     `;
   } else if (role === "guru") {
     dynamicQuestion.innerHTML = `
       <label>Mata Pelajaran</label>
-      <input type="text" id="subject" placeholder="Mata Pelajaran" required>
+      <input type="text" id="subject" name="subject" placeholder="Mata Pelajaran" required>
     `;
   }
 
@@ -89,41 +89,40 @@ prev3.addEventListener('click', () => {
   updateProgress(2);
 });
 
-// Submit form
-form.addEventListener('submit', (e) => {
+// Submit form via AJAX ke Formspree
+form.addEventListener('submit', async (e) => {
   e.preventDefault();
-  const name = document.getElementById('name').value;
-  const role = document.getElementById('role').value;
-  let extraInfo = '';
-  if (role === "siswa") {
-    extraInfo = document.getElementById('school').value;
-  } else {
-    extraInfo = document.getElementById('subject').value;
-  }
 
   const minatUtama = document.querySelector('input[name="minatUtama"]:checked');
-  const minatTambahan = Array.from(document.querySelectorAll('input[name="minatTambahan"]:checked'))
-    .map(cb => cb.value);
-
   if (!minatUtama) {
     alert("Pilih satu minat utama!");
     return;
   }
 
-  message.style.display = 'block';
-  message.innerHTML = `
-    ✅ <strong>Data Berhasil Dikirim!</strong><br><br>
-    Nama: <strong>${name}</strong><br>
-    Peran: <strong>${role}</strong><br>
-    Info tambahan: <strong>${extraInfo}</strong><br>
-    Minat utama: <strong>${minatUtama.value}</strong><br>
-    Minat tambahan: <strong>${minatTambahan.join(', ') || 'Tidak ada'}</strong>
-  `;
+  const formData = new FormData(form);
 
-  form.reset();
-  step3.classList.remove('active');
-  step1.classList.add('active');
-  updateProgress(1);
+  try {
+    const response = await fetch(form.action, {
+      method: 'POST',
+      body: formData,
+      headers: { 'Accept': 'application/json' }
+    });
+
+    if (response.ok) {
+      message.style.display = 'block';
+      message.textContent = "✅ Data berhasil dikirim!";
+      form.reset();
+      step3.classList.remove('active');
+      step1.classList.add('active');
+      updateProgress(1);
+    } else {
+      message.style.display = 'block';
+      message.textContent = "❌ Terjadi kesalahan, coba lagi!";
+    }
+  } catch (error) {
+    message.style.display = 'block';
+    message.textContent = "❌ Terjadi kesalahan, coba lagi!";
+  }
 });
 
 // Set default progress
