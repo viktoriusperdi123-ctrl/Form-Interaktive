@@ -15,26 +15,11 @@ const progressBar = document.getElementById('progressBar');
 const progressText = document.getElementById('progressText');
 const errorMessage = document.getElementById('errorMessage');
 
-// Dark Mode Toggle dengan penyimpanan
+// Dark Mode Toggle
 const darkToggle = document.getElementById('darkToggle');
-
-// Cek localStorage saat load halaman
-if (localStorage.getItem('darkMode') === 'enabled') {
-  document.body.classList.add('dark-mode');
-  darkToggle.checked = true;
-}
-
-// Toggle dark mode dan simpan di localStorage
 darkToggle.addEventListener('change', () => {
-  if (darkToggle.checked) {
-    document.body.classList.add('dark-mode');
-    localStorage.setItem('darkMode', 'enabled');
-  } else {
-    document.body.classList.remove('dark-mode');
-    localStorage.setItem('darkMode', 'disabled');
-  }
+  document.body.classList.toggle('dark-mode', darkToggle.checked);
 });
-
 
 // Update progress bar
 function updateProgress(step) {
