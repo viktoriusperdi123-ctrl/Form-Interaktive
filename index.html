@@ -1,13 +1,12 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Form Interaktif Multi-Step</title>
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <!-- Toggle Dark Mode -->
   <div class="toggle-container">
     <label class="switch">
       <input type="checkbox" id="darkToggle">
@@ -35,7 +34,7 @@
           <option value="guru">Guru</option>
         </select>
         <button type="button" id="next1">Lanjut</button>
-        <div id="errorMessage" style="display:none; color:red; font-size:14px; margin-top:5px;"></div>
+        <div id="errorMessage" class="error-message"></div>
       </div>
 
       <!-- Step 2 -->
@@ -68,7 +67,6 @@
       </div>
     </form>
 
-    <div class="error" id="errorMessage"></div>
     <div class="message" id="message"></div>
   </div>
 
