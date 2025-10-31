@@ -179,3 +179,17 @@ body.dark-mode select {
   color: white;
   border-color: #666;
 }
+
+/* Judul utama */
+h1 {
+  text-align: center;
+  font-size: 2em;
+  margin-bottom: 20px;
+  color: #222; /* Warna teks gelap untuk mode terang */
+  transition: color 0.3s ease;
+}
+
+/* Saat mode gelap aktif */
+body.dark-mode h1 {
+  color: #ffffff; /* Warna putih agar terlihat di mode gelap */
+}
