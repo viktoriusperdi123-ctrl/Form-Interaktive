@@ -26,8 +26,7 @@ darkToggle.addEventListener('change', () => {
 // === PROGRESS BAR FUNCTION ===
 function updateProgress(step) {
   const total = 3;
-  const percent = (step / total) * 100;
-  progressBar.style.width = percent + '%';
+  progressBar.style.width = (step/total*100) + '%';
   progressText.textContent = `Langkah ${step} dari ${total}`;
 }
 
